@@ -1,0 +1,33 @@
+spring:
+  config:
+    import: classpath:privacy.yaml
+
+  application:
+  name: stockpricebackend
+
+  redis:
+    host: ${redis.host}
+    port: ${redis.port}
+
+  kis:
+    url: ${kis.url}
+    real_port: ${kis.real_port}
+    test_port: ${kis.test_port}
+    stockNames: ${kis.stockNames}
+    stockCodes: ${kis.stockCodes}
+    trIdNames: ${kis.trIdnames}
+    trIds: ${kis.trIds}
+    blue:
+      appkey: ${kis.blue.appkey}
+      appsecret: ${kis.blue.appsecret}
+      personalsecKey: ${kis.blue.personalsecKey}
+      custType: ${kis.blue.custType}
+      contentType: ${kis.blue.contentType}
+      htsId: ${kis.blue.htsId}
+    green:
+      appkey: ${kis.green.appkey}
+      appsecret: ${kis.green.appsecret}
+      personalsecKey: ${kis.green.personalsecKey}
+      custType: ${kis.green.custType}
+      contentType: ${kis.green.contentType}
+      htsId: ${kis.green.htsId}
