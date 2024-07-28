@@ -58,7 +58,7 @@ public class KisWebSocketUtil {
         Map<String, Object> header = userProperties.getHeader(trType.getValue());
 
         HashMap<String, Object> body = new HashMap<>();
-        body.put("tr_id", accessProperties.getTrIdMap().get(trName.getValue()));
+        body.put("tr_id", accessProperties.getTrIdMap().get(trName.name()));
         body.put("tr_key", accessProperties.getStockCodeMap().get(stock.getName()));
         HashMap<String, Object> bodyWrapper = new HashMap<>();
         bodyWrapper.put("input", body);
