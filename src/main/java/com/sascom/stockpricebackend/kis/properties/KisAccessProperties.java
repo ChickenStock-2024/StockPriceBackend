@@ -16,7 +16,7 @@ public class KisAccessProperties {
     private final Map<String, String> trIdMap = new HashMap<>();
 
     @ConstructorBinding
-    KisAccessProperties(
+    private KisAccessProperties(
             String url, String real_port, String test_port,
             String[] stockNames, String[] stockCodes,
             String[] trIdNames, String[] trIds
