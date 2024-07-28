@@ -8,15 +8,14 @@ import com.sascom.stockpricebackend.kis.properties.StockName;
 import com.sascom.stockpricebackend.kis.properties.TrName;
 import com.sascom.stockpricebackend.kis.util.KisWebSocketUtil;
 import com.sascom.stockpricebackend.kis.util.OpsDataParser;
+import com.sascom.stockpricebackend.redis.pub.RedisMessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 import java.util.Optional;
-
 import static com.sascom.stockpricebackend.kis.util.OpsDataParser.PINGPONG_TR_ID;
 
 @Slf4j
@@ -28,6 +27,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
     private final KisWebSocketUtil kisWebSocketUtil;
     private final KisAccessProperties kisAccessProperties;
     private final SimpMessagingTemplate messagingTemplate;
+    private final RedisMessagePublisher redisMessagePublisher;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -41,8 +41,9 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
             log.info("[SEND] : {}", receivedPayload);
             session.sendMessage(new TextMessage(receivedPayload));
 
-            // TODO 전송 확인을 위한 임시 송신
+            // TODO 전송 확인을 위한 임시 송신. 삭제 필요
             messagingTemplate.convertAndSend("/stock-hoka", receivedPayload);
+//            redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), receivedPayload);
             return;
         }
         if (resolvedData.data() != null) {
@@ -56,6 +57,9 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
 
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
             messagingTemplate.convertAndSend(dest, sendPayload);
+            if (dest.equals(PublishDest.REALTIME_PURCHASE.getDest())) {
+                redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), receivedPayload);
+            }
         }
     }
 
