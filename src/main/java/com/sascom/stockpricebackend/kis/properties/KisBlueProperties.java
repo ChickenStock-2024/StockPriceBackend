@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 public class KisBlueProperties extends KisUserProperties{
 
     @ConstructorBinding
-    KisBlueProperties(String appkey, String appsecret, String personalsecKey, String custType, String contentType, String htsId) {
+    private KisBlueProperties(String appkey, String appsecret, String personalsecKey, String custType, String contentType, String htsId) {
         super(appkey, appsecret, personalsecKey, custType, contentType, htsId);
     }
 }
