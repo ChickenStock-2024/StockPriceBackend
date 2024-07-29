@@ -12,10 +12,7 @@ import java.util.Arrays;
 public class RedisMessageSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        String from = new String(pattern);
         String messageBody = new String(message.getBody());
-        System.out.println(Arrays.toString(message.getBody()));
-        log.info("[Redis Received] from: {}", from);
 
         // TODO 문자열에 쓰래기값 제거. (바이트 배열 7번 인덱스까지 쓰레기값)
         log.info("[Redis Received] message: {}", messageBody);
