@@ -69,7 +69,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
             return Optional.of(PublishDest.REALTIME_HOKA.getDest());
         }
 
-        String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_HOKA.name());
+        String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_PURCHASE.name());
         if (purchaseTrId.equals(messageTrId)) {
             return Optional.of(PublishDest.REALTIME_PURCHASE.getDest());
         }
