@@ -5,10 +5,6 @@ spring:
   application:
   name: stockpricebackend
 
-  redis:
-    host: ${redis.host}
-    port: ${redis.port}
-
   kis:
     url: ${kis.url}
     real_port: ${kis.real_port}
