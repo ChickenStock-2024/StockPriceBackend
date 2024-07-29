@@ -58,7 +58,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
             messagingTemplate.convertAndSend(dest, sendPayload);
             if (dest.equals(PublishDest.REALTIME_PURCHASE.getDest())) {
-                redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), receivedPayload);
+                redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), sendPayload);
             }
         }
     }
