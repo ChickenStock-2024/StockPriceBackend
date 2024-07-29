@@ -1,6 +1,6 @@
 spring:
   config:
-    import: classpath:privacy.yaml
+    import: optional:file:privacy.yaml
 
   application:
   name: stockpricebackend
