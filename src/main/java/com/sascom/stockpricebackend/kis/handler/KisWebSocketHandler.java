@@ -1,6 +1,7 @@
 package com.sascom.stockpricebackend.kis.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sascom.stockpricebackend.global.event.ChickenStockEventPublisher;
 import com.sascom.stockpricebackend.kis.model.ResolvedData;
 import com.sascom.stockpricebackend.kis.properties.KisAccessProperties;
 import com.sascom.stockpricebackend.kis.properties.PublishDest;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.Optional;
+import java.util.UUID;
+
 import static com.sascom.stockpricebackend.kis.util.OpsDataParser.PINGPONG_TR_ID;
 
 @Slf4j
@@ -29,6 +32,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
     private final SimpMessagingTemplate messagingTemplate;
     private final RedisMessagePublisher redisMessagePublisher;
     private final ObjectMapper objectMapper;
+    private final ChickenStockEventPublisher eventPublisher;
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -92,6 +96,8 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
 
         log.warn("kis session closed: {}", session.getId());
         log.warn("close status: {}", status);
+
+        eventPublisher.publishDisconnectEvent(UUID.randomUUID().toString());
     }
 
     @Override

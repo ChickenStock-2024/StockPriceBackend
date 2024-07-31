@@ -1,29 +1,33 @@
 spring:
   config:
-    import: optional:file:privacy.yaml
+    import: optional:file:.env[.properties]
 
   application:
-  name: stockpricebackend
+    name: stockpricebackend
 
-  kis:
-    url: ${kis.url}
-    real_port: ${kis.real_port}
-    test_port: ${kis.test_port}
-    stockNames: ${kis.stockNames}
-    stockCodes: ${kis.stockCodes}
-    trIdNames: ${kis.trIdnames}
-    trIds: ${kis.trIds}
-    blue:
-      appkey: ${kis.blue.appkey}
-      appsecret: ${kis.blue.appsecret}
-      personalsecKey: ${kis.blue.personalsecKey}
-      custType: ${kis.blue.custType}
-      contentType: ${kis.blue.contentType}
-      htsId: ${kis.blue.htsId}
-    green:
-      appkey: ${kis.green.appkey}
-      appsecret: ${kis.green.appsecret}
-      personalsecKey: ${kis.green.personalsecKey}
-      custType: ${kis.green.custType}
-      contentType: ${kis.green.contentType}
-      htsId: ${kis.green.htsId}
+kis:
+  url: ${WS_URL}
+  real_port: ${REAL_PORT}
+  test_port: ${TEST_PORT}
+  stockNames: ${STOCK_NAMES}
+  stockCodes: ${STOCK_CODES}
+  trIdNames: ${TRID_NAMES}
+  trIds: ${TRIDS}
+  blue:
+    appkey: ${BLUE_APPKEY}
+    appsecret: ${BLUE_APPSECRET}
+    personalsecKey: ${BLUE_PERSONALSECKEY}
+    custType: ${BLUE_CUSTTYPE}
+    contentType: ${BLUE_CONTENTTYPE}
+    htsId: ${BLUE_HTSID}
+  green:
+    appkey: ${GREEN_APPKEY}
+    appsecret: ${GREEN_APPSECRET}
+    personalsecKey: ${GREEN_PERSONALSECKEY}
+    custType: ${GREEN_CUSTTYPE}
+    contentType: ${GREEN_CONTENTTYPE}
+    htsId: ${GREEN_HTSID}
+
+redis:
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}

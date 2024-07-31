@@ -1,5 +1,6 @@
 package com.sascom.stockpricebackend.kis;
 
+import com.sascom.stockpricebackend.global.event.DisconnectEvent;
 import com.sascom.stockpricebackend.kis.properties.KisAccessProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,16 @@ public class KisWebSocketClient extends StandardWebSocketClient {
         connectWebSocket(kisApiUri);
     }
 
-    private void connectWebSocket(String apiUri) {
+    @EventListener(DisconnectEvent.class)
+    private void reconnect(DisconnectEvent event) throws InterruptedException {
+        log.info("[Listen] Disconnect Event: {}", event.getEventId());
+        log.info("Wait 5sec and start reconnect");
 
+        Thread.sleep(5000);
+        initializeConnection();
+    }
+
+    private void connectWebSocket(String apiUri) {
         CompletableFuture<WebSocketSession> execute = execute(kisWebSocketHandler, apiUri);
         execute.thenAccept(webSocketSession -> {
             log.info("kis session id: {}", webSocketSession.getId());
