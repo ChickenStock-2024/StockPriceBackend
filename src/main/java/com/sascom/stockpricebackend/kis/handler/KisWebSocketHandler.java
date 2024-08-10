@@ -9,7 +9,7 @@ import com.sascom.stockpricebackend.kis.properties.StockName;
 import com.sascom.stockpricebackend.kis.properties.TrName;
 import com.sascom.stockpricebackend.kis.util.KisWebSocketUtil;
 import com.sascom.stockpricebackend.kis.util.OpsDataParser;
-import com.sascom.stockpricebackend.redis.pub.RedisMessagePublisher;
+import com.sascom.stockpricebackend.global.redis.pub.RedisMessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

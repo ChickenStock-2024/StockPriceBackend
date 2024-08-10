@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.redis.sub;
+package com.sascom.stockpricebackend.global.redis.sub;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;

@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.redis.pub;
+package com.sascom.stockpricebackend.global.redis.pub;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
