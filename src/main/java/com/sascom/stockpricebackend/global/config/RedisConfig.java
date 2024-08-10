@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.global.redis.config;
+package com.sascom.stockpricebackend.global.config;
 
 import com.sascom.stockpricebackend.kis.properties.PublishDest;
 import com.sascom.stockpricebackend.global.redis.sub.RedisMessageSubscriber;
