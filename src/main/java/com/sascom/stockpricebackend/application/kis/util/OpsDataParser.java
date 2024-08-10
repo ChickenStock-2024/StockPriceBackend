@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
+import com.sascom.stockpricebackend.application.kis.model.StockData;
 import com.sascom.stockpricebackend.application.kis.model.StockHokaDto;
 import com.sascom.stockpricebackend.application.kis.model.StockPurchaseDto;
 import com.sascom.stockpricebackend.application.kis.properties.KisAccessProperties;
@@ -23,7 +24,7 @@ public class OpsDataParser {
 	private final String DELIMITER_CARET = "\\^";
 	private final ObjectMapper objectMapper;
 
-	public ResolvedData<?> resolveMessage(String message) throws JsonProcessingException {
+	public ResolvedData<StockData> resolveMessage(String message) throws JsonProcessingException {
 
 		char fStr = message.charAt(0);
 
@@ -41,7 +42,7 @@ public class OpsDataParser {
         }
 	}
 
-	private ResolvedData<?> handleApiResponseMessage(String message) throws JsonProcessingException {
+	private ResolvedData<StockData> handleApiResponseMessage(String message) throws JsonProcessingException {
 		String[] messageData = message.split(DELIMITER_PIPE);
 
 		String trId = messageData[1];
@@ -62,7 +63,7 @@ public class OpsDataParser {
 		}
     }
 
-	private ResolvedData<?> handleNormalJsonMessage(String message) throws JsonProcessingException {
+	private ResolvedData<StockData> handleNormalJsonMessage(String message) throws JsonProcessingException {
 		JsonNode jsonNode = objectMapper.readTree(message);
 		JsonNode header = jsonNode.get("header");
 

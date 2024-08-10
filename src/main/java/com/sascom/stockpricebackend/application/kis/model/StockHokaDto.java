@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class StockHokaDto {
+public class StockHokaDto implements StockData{
     private final String stockCode;
     private final String businessTime;
     private final String timeDivisionCode;

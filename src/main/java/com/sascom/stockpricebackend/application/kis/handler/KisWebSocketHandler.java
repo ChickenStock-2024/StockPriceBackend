@@ -2,6 +2,7 @@ package com.sascom.stockpricebackend.application.kis.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
+import com.sascom.stockpricebackend.application.kis.model.StockData;
 import com.sascom.stockpricebackend.application.kis.properties.TrName;
 import com.sascom.stockpricebackend.application.kis.util.OpsDataParser;
 import com.sascom.stockpricebackend.global.event.ChickenStockEventPublisher;
@@ -33,7 +34,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
         String receivedPayload = message.getPayload();
         log.info("[RECEIVE] : {}", receivedPayload);
 
-        ResolvedData<?> resolvedData = opsDataParser.resolveMessage(receivedPayload);
+        ResolvedData<StockData> resolvedData = opsDataParser.resolveMessage(receivedPayload);
 
         if (OpsDataParser.PINGPONG_TR_ID.equals(resolvedData.trId())) {
             log.info("[SEND] : {}", receivedPayload);
@@ -50,6 +51,8 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
                     .orElseThrow(() -> new IllegalArgumentException("알수없는 경로입니다."));
 
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
+
+            String stockCode = resolvedData.data().getStockCode();
             messagingTemplate.convertAndSend(dest, sendPayload);
             if (dest.equals(TrName.REALTIME_PURCHASE.getDest())) {
                 redisMessagePublisher.publish(TrName.REALTIME_PURCHASE.getDest(), sendPayload);
