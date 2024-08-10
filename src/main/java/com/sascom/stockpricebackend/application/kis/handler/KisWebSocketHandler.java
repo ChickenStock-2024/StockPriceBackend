@@ -1,5 +1,6 @@
 package com.sascom.stockpricebackend.application.kis.handler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
 import com.sascom.stockpricebackend.application.kis.model.StockData;
@@ -14,7 +15,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -44,34 +44,25 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
         if (resolvedData.data() != null) {
             log.info("resolvedData: {}", resolvedData.data());
 
-            String messageTrId = resolvedData.trId();
-
-            // TODO 커스텀 에러로 수정
-            String dest = getDest(messageTrId)
-                    .orElseThrow(() -> new IllegalArgumentException("알수없는 경로입니다."));
-
-            String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
-
-            String stockCode = resolvedData.data().getStockCode();
-            messagingTemplate.convertAndSend(dest, sendPayload);
-            if (dest.equals(TrName.REALTIME_PURCHASE.getDest())) {
-                redisMessagePublisher.publish(TrName.REALTIME_PURCHASE.getDest(), sendPayload);
-            }
+            publishMessage(resolvedData);
         }
     }
 
-    private Optional<String> getDest(String messageTrId) {
+    private void publishMessage(ResolvedData<StockData> resolvedData) throws JsonProcessingException {
+        String trId = resolvedData.trId();
+        String destSuffix = "/" + resolvedData.data().getStockCode();
+
         String hokaTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_HOKA.name());
-        if (hokaTrId.equals(messageTrId)) {
-            return Optional.of(TrName.REALTIME_HOKA.getDest());
+        if (hokaTrId.equals(trId)) {
+            String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
+            messagingTemplate.convertAndSend(TrName.REALTIME_HOKA.getDest() + destSuffix, sendPayload);
         }
 
         String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_PURCHASE.name());
-        if (purchaseTrId.equals(messageTrId)) {
-            return Optional.of(TrName.REALTIME_PURCHASE.getDest());
+        if (purchaseTrId.equals(trId)) {
+            String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
+            redisMessagePublisher.publish(TrName.REALTIME_PURCHASE.getDest() + destSuffix, sendPayload);
         }
-
-        return Optional.empty();
     }
   
     @Override

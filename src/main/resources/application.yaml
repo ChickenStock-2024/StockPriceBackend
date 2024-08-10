@@ -15,8 +15,6 @@ kis:
   url: ${WS_URL}
   real_port: ${REAL_PORT}
   test_port: ${TEST_PORT}
-  stockNames: ${STOCK_NAMES}
-  stockCodes: ${STOCK_CODES}
   trIdNames: ${TRID_NAMES}
   trIds: ${TRIDS}
   blue:
