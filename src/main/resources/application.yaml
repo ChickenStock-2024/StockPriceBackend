@@ -5,6 +5,12 @@ spring:
   application:
     name: stockpricebackend
 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
 kis:
   url: ${WS_URL}
   real_port: ${REAL_PORT}
