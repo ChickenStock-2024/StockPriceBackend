@@ -2,7 +2,6 @@ package com.sascom.stockpricebackend.application.kis.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
-import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
 import com.sascom.stockpricebackend.application.kis.properties.TrName;
 import com.sascom.stockpricebackend.application.kis.util.OpsDataParser;
 import com.sascom.stockpricebackend.global.event.ChickenStockEventPublisher;
@@ -52,8 +51,8 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
 
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
             messagingTemplate.convertAndSend(dest, sendPayload);
-            if (dest.equals(PublishDest.REALTIME_PURCHASE.getDest())) {
-                redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), sendPayload);
+            if (dest.equals(TrName.REALTIME_PURCHASE.getDest())) {
+                redisMessagePublisher.publish(TrName.REALTIME_PURCHASE.getDest(), sendPayload);
             }
         }
     }
@@ -61,12 +60,12 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
     private Optional<String> getDest(String messageTrId) {
         String hokaTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_HOKA.name());
         if (hokaTrId.equals(messageTrId)) {
-            return Optional.of(PublishDest.REALTIME_HOKA.getDest());
+            return Optional.of(TrName.REALTIME_HOKA.getDest());
         }
 
         String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_PURCHASE.name());
         if (purchaseTrId.equals(messageTrId)) {
-            return Optional.of(PublishDest.REALTIME_PURCHASE.getDest());
+            return Optional.of(TrName.REALTIME_PURCHASE.getDest());
         }
 
         return Optional.empty();

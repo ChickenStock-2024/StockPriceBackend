@@ -1,7 +1,7 @@
 package com.sascom.stockpricebackend.application.client.config;
 
 import com.sascom.stockpricebackend.application.client.handler.ClientWebSocketHandlerDecorator;
-import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
+import com.sascom.stockpricebackend.application.kis.properties.TrName;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -31,8 +31,8 @@ public class ClientWebSocketMessageBrokerConfig implements WebSocketMessageBroke
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker(
-                PublishDest.REALTIME_HOKA.getDest(),
-                PublishDest.REALTIME_PURCHASE.getDest()
+                TrName.REALTIME_HOKA.getDest(),
+                TrName.REALTIME_PURCHASE.getDest()
         );
     }
 
