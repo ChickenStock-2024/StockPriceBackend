@@ -3,9 +3,7 @@ package com.sascom.stockpricebackend.application.kis.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
 import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
-import com.sascom.stockpricebackend.application.kis.properties.StockName;
 import com.sascom.stockpricebackend.application.kis.properties.TrName;
-import com.sascom.stockpricebackend.application.kis.util.KisWebSocketUtil;
 import com.sascom.stockpricebackend.application.kis.util.OpsDataParser;
 import com.sascom.stockpricebackend.global.event.ChickenStockEventPublisher;
 import com.sascom.stockpricebackend.application.kis.properties.KisAccessProperties;
@@ -25,7 +23,6 @@ import java.util.UUID;
 public class KisWebSocketHandler extends TextWebSocketHandler {
 
     private final OpsDataParser opsDataParser;
-    private final KisWebSocketUtil kisWebSocketUtil;
     private final KisAccessProperties kisAccessProperties;
     private final SimpMessagingTemplate messagingTemplate;
     private final RedisMessagePublisher redisMessagePublisher;
@@ -42,10 +39,6 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
         if (OpsDataParser.PINGPONG_TR_ID.equals(resolvedData.trId())) {
             log.info("[SEND] : {}", receivedPayload);
             session.sendMessage(new TextMessage(receivedPayload));
-
-            // TODO 전송 확인을 위한 임시 송신. 삭제 필요
-            messagingTemplate.convertAndSend("/stock-hoka", receivedPayload);
-//            redisMessagePublisher.publish(PublishDest.REALTIME_PURCHASE.getDest(), receivedPayload);
             return;
         }
         if (resolvedData.data() != null) {
@@ -82,8 +75,6 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("kis session connected: {}", session.getId());
-        kisWebSocketUtil.subscribe(session, TrName.REALTIME_HOKA, StockName.SAMSUNG);
-        kisWebSocketUtil.subscribe(session, TrName.REALTIME_PURCHASE, StockName.SAMSUNG);
     }
 
     @Override

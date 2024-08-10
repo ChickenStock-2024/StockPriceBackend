@@ -21,7 +21,7 @@ public class KisWebSocketUtil {
     private final KisAccessProperties accessProperties;
 
     public KisWebSocketUtil(
-            @Qualifier("greenProperties")
+            @Qualifier("blueProperties")
             KisUserProperties userProperties,
             ObjectMapper objectMapper,
             KisAccessProperties accessProperties
@@ -32,12 +32,22 @@ public class KisWebSocketUtil {
         this.accessProperties = accessProperties;
     }
 
-    public void subscribe(WebSocketSession session, TrName trName, StockName stockName) throws IOException {
-        String requestMessage = createRequestMessage(TrType.SUBSCRIBE, trName, stockName);
+    public void subscribeCompany(WebSocketSession session, String stockCode) throws IOException {
+        subscribe(session, TrName.REALTIME_HOKA, stockCode);
+        subscribe(session, TrName.REALTIME_PURCHASE, stockCode);
+    }
+
+    public void cancelCompany(WebSocketSession session, String stockCode) throws IOException {
+        cancel(session, TrName.REALTIME_HOKA, stockCode);
+        cancel(session, TrName.REALTIME_PURCHASE, stockCode);
+    }
+
+    public void subscribe(WebSocketSession session, TrName trName, String stockCode) throws IOException {
+        String requestMessage = createRequestMessage(TrType.SUBSCRIBE, trName, stockCode);
         sendMessage(session, requestMessage);
     }
-    public void cancel(WebSocketSession session, TrName trName, StockName stockName) throws IOException {
-        String requestMessage = createRequestMessage(TrType.CANCEL, trName, stockName);
+    public void cancel(WebSocketSession session, TrName trName, String stockCode) throws IOException {
+        String requestMessage = createRequestMessage(TrType.CANCEL, trName, stockCode);
         sendMessage(session, requestMessage);
     }
 
@@ -49,17 +59,17 @@ public class KisWebSocketUtil {
         }
     }
 
-    private String createRequestMessage(TrType trType, TrName trName, StockName stockName) throws IOException {
-        HashMap<String, Object> requestMessageInfo = getRequestMap(trType, trName, stockName);
+    private String createRequestMessage(TrType trType, TrName trName, String stockCode) throws IOException {
+        HashMap<String, Object> requestMessageInfo = getRequestMap(trType, trName, stockCode);
         return objectMapper.writeValueAsString(requestMessageInfo);
     }
 
-    private HashMap<String, Object> getRequestMap(TrType trType, TrName trName, StockName stock) throws JsonProcessingException {
+    private HashMap<String, Object> getRequestMap(TrType trType, TrName trName, String stockCode) throws JsonProcessingException {
         Map<String, Object> header = userProperties.getHeader(trType.getValue());
 
         HashMap<String, Object> body = new HashMap<>();
         body.put("tr_id", accessProperties.getTrIdMap().get(trName.name()));
-        body.put("tr_key", accessProperties.getStockCodeMap().get(stock.getName()));
+        body.put("tr_key", stockCode);
         HashMap<String, Object> bodyWrapper = new HashMap<>();
         bodyWrapper.put("input", body);
 
