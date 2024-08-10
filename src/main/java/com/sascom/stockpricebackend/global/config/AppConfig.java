@@ -10,6 +10,11 @@ public class AppConfig {
 
     @Bean
     public Map<String, String> companyCodeMap() {
-        return new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, String> companyCodeMap = new ConcurrentHashMap<>();
+        companyCodeMap.put("삼성전자", "005930");
+        companyCodeMap.put("삼성전기", "009150");
+        companyCodeMap.put("신한은행", "000010");
+        companyCodeMap.put("하나은행", "004940");
+        return companyCodeMap;
     }
 }

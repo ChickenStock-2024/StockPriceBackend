@@ -56,6 +56,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
         if (hokaTrId.equals(trId)) {
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
             messagingTemplate.convertAndSend(TrName.REALTIME_HOKA.getDest() + destSuffix, sendPayload);
+            return;
         }
 
         String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_PURCHASE.name());
