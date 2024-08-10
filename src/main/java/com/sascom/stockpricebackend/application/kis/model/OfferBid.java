@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.kis.model;
+package com.sascom.stockpricebackend.application.kis.model;
 
 /**
  * @param price  가격

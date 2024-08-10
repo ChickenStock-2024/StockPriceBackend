@@ -1,7 +1,7 @@
-package com.sascom.stockpricebackend.client.config;
+package com.sascom.stockpricebackend.application.client.config;
 
-import com.sascom.stockpricebackend.client.handler.ClientWebSocketHandlerDecorator;
-import com.sascom.stockpricebackend.kis.properties.PublishDest;
+import com.sascom.stockpricebackend.application.client.handler.ClientWebSocketHandlerDecorator;
+import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

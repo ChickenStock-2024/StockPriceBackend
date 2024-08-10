@@ -1,6 +1,6 @@
 package com.sascom.stockpricebackend.global.config;
 
-import com.sascom.stockpricebackend.kis.properties.PublishDest;
+import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
 import com.sascom.stockpricebackend.global.redis.sub.RedisMessageSubscriber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

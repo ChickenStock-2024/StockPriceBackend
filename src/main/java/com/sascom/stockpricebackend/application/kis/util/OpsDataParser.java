@@ -1,12 +1,12 @@
-package com.sascom.stockpricebackend.kis.util;
+package com.sascom.stockpricebackend.application.kis.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sascom.stockpricebackend.kis.model.ResolvedData;
-import com.sascom.stockpricebackend.kis.model.StockHokaDto;
-import com.sascom.stockpricebackend.kis.model.StockPurchaseDto;
-import com.sascom.stockpricebackend.kis.properties.KisAccessProperties;
+import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
+import com.sascom.stockpricebackend.application.kis.model.StockHokaDto;
+import com.sascom.stockpricebackend.application.kis.model.StockPurchaseDto;
+import com.sascom.stockpricebackend.application.kis.properties.KisAccessProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

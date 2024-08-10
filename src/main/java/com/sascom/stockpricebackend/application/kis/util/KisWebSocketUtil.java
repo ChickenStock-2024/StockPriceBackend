@@ -1,7 +1,8 @@
-package com.sascom.stockpricebackend.kis.util;
+package com.sascom.stockpricebackend.application.kis.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sascom.stockpricebackend.application.kis.properties.*;
 import com.sascom.stockpricebackend.kis.properties.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

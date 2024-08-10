@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.kis.model;
+package com.sascom.stockpricebackend.application.kis.model;
 
 public record ResolvedData<T>(
         String trId,

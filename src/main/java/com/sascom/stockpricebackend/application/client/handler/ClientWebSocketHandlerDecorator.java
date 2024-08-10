@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.client.handler;
+package com.sascom.stockpricebackend.application.client.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.socket.CloseStatus;

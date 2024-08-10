@@ -1,14 +1,14 @@
-package com.sascom.stockpricebackend.kis.handler;
+package com.sascom.stockpricebackend.application.kis.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sascom.stockpricebackend.application.kis.model.ResolvedData;
+import com.sascom.stockpricebackend.application.kis.properties.PublishDest;
+import com.sascom.stockpricebackend.application.kis.properties.StockName;
+import com.sascom.stockpricebackend.application.kis.properties.TrName;
+import com.sascom.stockpricebackend.application.kis.util.KisWebSocketUtil;
+import com.sascom.stockpricebackend.application.kis.util.OpsDataParser;
 import com.sascom.stockpricebackend.global.event.ChickenStockEventPublisher;
-import com.sascom.stockpricebackend.kis.model.ResolvedData;
-import com.sascom.stockpricebackend.kis.properties.KisAccessProperties;
-import com.sascom.stockpricebackend.kis.properties.PublishDest;
-import com.sascom.stockpricebackend.kis.properties.StockName;
-import com.sascom.stockpricebackend.kis.properties.TrName;
-import com.sascom.stockpricebackend.kis.util.KisWebSocketUtil;
-import com.sascom.stockpricebackend.kis.util.OpsDataParser;
+import com.sascom.stockpricebackend.application.kis.properties.KisAccessProperties;
 import com.sascom.stockpricebackend.global.redis.pub.RedisMessagePublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,8 +18,6 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.Optional;
 import java.util.UUID;
-
-import static com.sascom.stockpricebackend.kis.util.OpsDataParser.PINGPONG_TR_ID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -41,7 +39,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
 
         ResolvedData<?> resolvedData = opsDataParser.resolveMessage(receivedPayload);
 
-        if (PINGPONG_TR_ID.equals(resolvedData.trId())) {
+        if (OpsDataParser.PINGPONG_TR_ID.equals(resolvedData.trId())) {
             log.info("[SEND] : {}", receivedPayload);
             session.sendMessage(new TextMessage(receivedPayload));
 

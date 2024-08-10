@@ -1,4 +1,4 @@
-package com.sascom.stockpricebackend.kis.properties;
+package com.sascom.stockpricebackend.application.kis.properties;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

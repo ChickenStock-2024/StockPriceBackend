@@ -1,7 +1,7 @@
-package com.sascom.stockpricebackend.kis;
+package com.sascom.stockpricebackend.application.kis;
 
 import com.sascom.stockpricebackend.global.event.DisconnectEvent;
-import com.sascom.stockpricebackend.kis.properties.KisAccessProperties;
+import com.sascom.stockpricebackend.application.kis.properties.KisAccessProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
