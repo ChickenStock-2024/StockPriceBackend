@@ -3,7 +3,6 @@ package com.sascom.stockpricebackend.application.kis.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sascom.stockpricebackend.application.kis.properties.*;
-import com.sascom.stockpricebackend.kis.properties.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -22,7 +21,7 @@ public class KisWebSocketUtil {
     private final KisAccessProperties accessProperties;
 
     public KisWebSocketUtil(
-            @Qualifier("kis.blue-com.sascom.stockpricebackend.kis.properties.KisBlueProperties")
+            @Qualifier("greenProperties")
             KisUserProperties userProperties,
             ObjectMapper objectMapper,
             KisAccessProperties accessProperties

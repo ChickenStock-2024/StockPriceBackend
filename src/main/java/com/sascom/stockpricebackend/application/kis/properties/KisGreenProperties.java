@@ -1,9 +1,11 @@
 package com.sascom.stockpricebackend.application.kis.properties;
 
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
+@Qualifier("greenProperties")
 @ConfigurationProperties("kis.green")
 public class KisGreenProperties extends KisUserProperties{
 
