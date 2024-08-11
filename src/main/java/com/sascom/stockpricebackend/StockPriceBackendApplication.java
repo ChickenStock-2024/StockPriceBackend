@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@ConfigurationPropertiesScan(value = {"com.sascom.stockpricebackend.kis.properties"})
+@ConfigurationPropertiesScan(value = {"com.sascom.stockpricebackend.application.kis.properties"})
 public class StockPriceBackendApplication {
 
     public static void main(String[] args) {
