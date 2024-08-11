@@ -53,7 +53,13 @@ public class KisWebSocketUtil {
 
     private void sendMessage(WebSocketSession session, String message) throws IOException {
         if (session != null && session.isOpen()) {
-            session.sendMessage(new TextMessage(message));
+            try {
+                session.sendMessage(new TextMessage(message));
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                log.error("send message Thread sleep exception");
+                throw new RuntimeException(e);
+            }
         } else {
             log.error("Kis WebSocket Session is not open.");
         }
