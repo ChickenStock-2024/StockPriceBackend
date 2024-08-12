@@ -69,7 +69,7 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
     }
   
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(WebSocketSession session) {
         log.info("kis session connected: {}", session.getId());
         throw new Exception();
     }
