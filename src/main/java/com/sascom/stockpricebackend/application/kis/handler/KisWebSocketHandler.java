@@ -62,13 +62,16 @@ public class KisWebSocketHandler extends TextWebSocketHandler {
         String purchaseTrId = kisAccessProperties.getTrIdMap().get(TrName.REALTIME_PURCHASE.name());
         if (purchaseTrId.equals(trId)) {
             String sendPayload = objectMapper.writeValueAsString(resolvedData.data());
-            redisMessagePublisher.publish(TrName.REALTIME_PURCHASE.getDest() + destSuffix, sendPayload);
+            String purchaseDest = TrName.REALTIME_PURCHASE.getDest() + destSuffix;
+            messagingTemplate.convertAndSend(purchaseDest, sendPayload);
+            redisMessagePublisher.publish(purchaseDest, sendPayload);
         }
     }
   
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("kis session connected: {}", session.getId());
+        throw new Exception();
     }
 
     @Override

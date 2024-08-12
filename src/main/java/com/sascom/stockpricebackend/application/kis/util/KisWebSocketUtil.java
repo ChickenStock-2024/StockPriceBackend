@@ -21,7 +21,7 @@ public class KisWebSocketUtil {
     private final KisAccessProperties accessProperties;
 
     public KisWebSocketUtil(
-            @Qualifier("blueProperties")
+            @Qualifier("greenProperties")
             KisUserProperties userProperties,
             ObjectMapper objectMapper,
             KisAccessProperties accessProperties
