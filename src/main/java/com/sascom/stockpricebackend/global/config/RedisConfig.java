@@ -1,5 +1,6 @@
 package com.sascom.stockpricebackend.global.config;
 
+import com.sascom.stockpricebackend.application.kis.model.StockData;
 import com.sascom.stockpricebackend.application.kis.properties.TrName;
 import com.sascom.stockpricebackend.global.redis.sub.RedisMessageSubscriber;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
@@ -26,9 +29,11 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
+    public RedisTemplate<String, StockData> redisTemplate() {
+        RedisTemplate<String, StockData> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(StockData.class));
         return template;
     }
 
